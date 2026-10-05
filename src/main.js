@@ -2,7 +2,9 @@ import './style.css';
 import { createBoard, createCounters } from './scripts/board.js';
 import { createGame } from './scripts/game.js';
 import { el } from './scripts/dom.js';
+import { createModal } from './scripts/modal.js';
 
+const modal = createModal();
 const counters = createCounters();
 const board = createBoard({ onPick: (index) => game.pick(index) });
 
@@ -14,10 +16,33 @@ const game = createGame({
   onCardsChange: board.update,
   onCountersChange: counters.update,
   onWin(moves) {
-    // TODO: сохранить результат и открыть модальное окно победы.
-    console.log(`Победа за ${moves} ходов`);
+    // TODO: сохранить результат в таблицу лидеров.
+    openWinModal(moves);
   },
 });
+
+const openWinModal = (moves) => {
+  modal.open({
+    title: 'Победа!',
+    body: [
+      el('p', { text: 'Все пары найдены.' }),
+      el('p', { cls: 'modal__result', text: `Число ходов: ${moves}` }),
+    ],
+    actions: [
+      el('button', {
+        cls: 'btn btn--primary',
+        text: 'Новая игра',
+        attrs: { type: 'button' },
+        on: {
+          click() {
+            modal.close();
+            game.start();
+          },
+        },
+      }),
+    ],
+  });
+};
 
 const header = el('header', { cls: 'header' }, [
   el('h1', { cls: 'header__title', text: 'Найди пару' }),
