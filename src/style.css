@@ -1,0 +1,239 @@
+:root {
+  --felt: #17493f;
+  --felt-dark: #0f352e;
+  --ivory: #fffdf5;
+  --back: #d1495b;
+  --back-dark: #a8324a;
+  --gold: #edae49;
+  --ink: #1d2b28;
+  --text: #f3efe0;
+
+  font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+  color: var(--text);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html.modal-open {
+  overflow: hidden;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle at 50% 30%, var(--felt), var(--felt-dark)) fixed;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  width: min(100% - 2rem, 34rem);
+  margin: 0 auto;
+  padding: 1.25rem 0 0.75rem;
+}
+
+.header__title {
+  margin: 0;
+  font-size: 1.75rem;
+  letter-spacing: 0.01em;
+}
+
+.header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.55rem 1rem;
+  border: 2px solid var(--btn-color, var(--text));
+  border-radius: 999px;
+  background: transparent;
+  color: var(--btn-color, var(--text));
+  font-weight: 700;
+}
+
+.btn:hover {
+  background: rgb(128 128 128 / 18%);
+}
+
+.btn--primary {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.btn--primary:hover {
+  background: #f3bd63;
+}
+
+.game {
+  width: min(100% - 2rem, 34rem);
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+.counters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.counter {
+  margin: 0;
+}
+
+.counter__value {
+  color: var(--gold);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.5rem, 2vw, 0.9rem);
+}
+
+.card {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 4px solid var(--ivory);
+  border-radius: 0.75rem;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 8px, rgb(255 255 255 / 14%) 8px 16px),
+    repeating-linear-gradient(-45deg, transparent 0 8px, rgb(0 0 0 / 12%) 8px 16px), var(--back);
+  box-shadow: 0 4px 0 var(--felt-dark);
+  transition: transform 120ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card--open,
+.card--matched {
+  background: var(--ivory);
+  cursor: default;
+}
+
+.card--open:hover,
+.card--matched:hover {
+  transform: none;
+}
+
+.card--matched {
+  border-color: var(--gold);
+  opacity: 0.8;
+}
+
+.card__face {
+  font-size: clamp(2rem, 11vw, 3.75rem);
+  line-height: 1;
+  animation: reveal 160ms ease-out;
+}
+
+@keyframes reveal {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card__face {
+    animation: none;
+  }
+}
+
+.modal {
+  --btn-color: var(--ink);
+
+  width: min(100% - 2rem, 26rem);
+  max-height: calc(100% - 2rem);
+  padding: 0;
+  border: none;
+  border-radius: 1rem;
+  background: var(--ivory);
+  color: var(--ink);
+}
+
+.modal::backdrop {
+  background: rgb(8 24 21 / 72%);
+}
+
+.modal__content {
+  padding: 1.5rem;
+}
+
+.modal__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+}
+
+.modal__body p {
+  margin: 0 0 0.5rem;
+}
+
+.modal__result {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgb(29 43 40 / 15%);
+  text-align: left;
+}
+
+.leaderboard tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.leaderboard tbody tr:first-child td {
+  font-weight: 700;
+}
+
