@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
