@@ -3,6 +3,11 @@ import { createBoard, createCounters } from './scripts/board.js';
 import { createGame } from './scripts/game.js';
 import { el } from './scripts/dom.js';
 import { createModal } from './scripts/modal.js';
+import {
+  createLeaderboardContent,
+  loadResults,
+  saveResult,
+} from './scripts/leaderboard.js';
 
 const modal = createModal();
 const counters = createCounters();
@@ -16,7 +21,7 @@ const game = createGame({
   onCardsChange: board.update,
   onCountersChange: counters.update,
   onWin(moves) {
-    // TODO: сохранить результат в таблицу лидеров.
+    saveResult(moves);
     openWinModal(moves);
   },
 });
@@ -44,6 +49,13 @@ const openWinModal = (moves) => {
   });
 };
 
+const openLeaderboardModal = () => {
+  modal.open({
+    title: 'Таблица лидеров',
+    body: createLeaderboardContent(loadResults()),
+  });
+};
+
 const header = el('header', { cls: 'header' }, [
   el('h1', { cls: 'header__title', text: 'Найди пару' }),
   el('div', { cls: 'header__actions' }, [
@@ -58,9 +70,7 @@ const header = el('header', { cls: 'header' }, [
       text: 'Таблица лидеров',
       attrs: { type: 'button' },
       on: {
-        click() {
-          // TODO: открыть модальное окно таблицы лидеров.
-        },
+        click: openLeaderboardModal,
       },
     }),
   ]),

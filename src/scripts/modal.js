@@ -28,7 +28,10 @@ export const createModal = () => {
   });
 
   dialog.addEventListener('click', (event) => {
-    if (pressedOnBackdrop && event.target === dialog) close();
+    if (pressedOnBackdrop && event.target === dialog) {
+      close();
+    }
+
     pressedOnBackdrop = false;
   });
 

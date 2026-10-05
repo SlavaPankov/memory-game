@@ -215,3 +215,25 @@ button {
   gap: 0.5rem;
   margin-top: 1.25rem;
 }
+
+.leaderboard {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.leaderboard th,
+.leaderboard td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgb(29 43 40 / 15%);
+  text-align: left;
+}
+
+.leaderboard tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.leaderboard tbody tr:first-child td {
+  font-weight: 700;
+}
+
